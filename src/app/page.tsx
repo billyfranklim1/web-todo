@@ -1,5 +1,5 @@
 "use client";
-import { FaEdit, FaTrash, FaSave } from "react-icons/fa";
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import { useState } from "react";
 
 export default function Home() {
@@ -65,34 +65,36 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center py-2 mt-64">
       <h1 className="text-4xl font-bold text-gray-800 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
-        What do you do today ??</h1>
-      <form
-        className="flex justify-center items-center m-4 w-96 gap-2"
-        onSubmit={handleSubmit}
-      >
-        <input
-          type="text"
-          className="border-2 border-gray-100 rounded-md py-2 px-4 w-full h-12"
-          placeholder="Add your task here ..."
-          value={todo.title}
-          onChange={handleAddTask}
-        />
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center justify-center py-2 px-4 h-12"
-          type="submit"
-        >
-          <FaSave />
-        </button>
+        What do you do today ?
+      </h1>
+      <form className="w-96 mb-2" onSubmit={handleSubmit}>
+        <div className="w-full flex gap-2 items-center">
+          <input
+            type="text"
+            className="border-2 border-gray-100 rounded-md py-2 px-4 w-full h-12"
+            placeholder="Add your task here ..."
+            value={todo.title}
+            onChange={handleAddTask}
+          />
+
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center justify-center py-2 px-4 h-12"
+            type="submit"
+          >
+            <FaPlus />
+          </button>
+        </div>
+        <p className="text-gray-500 text-xs mt-2">
+          Press Enter to save task
+        </p>
       </form>
       <div className="flex flex-col items-center justify-center w-96">
         {tasks.length > 0 &&
           tasks
-            .slice()
-            .reverse()
             .map((task, i) => (
               <li
                 key={i}
-                className="bg-gray-100 w-full rounded-md flex justify-between items-center p-2 m-1"
+                className="bg-gray-100 w-full rounded-md flex justify-between items-center p-2 m-2"
               >
                 <div className="flex items-center align-center">
                   <input
