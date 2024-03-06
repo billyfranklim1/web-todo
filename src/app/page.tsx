@@ -65,7 +65,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center py-2 mt-64">
       <h1 className="text-4xl font-bold text-gray-800 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
-        What do you do today ?
+        What are you going to do today?
       </h1>
       <form className="w-96 mb-2" onSubmit={handleSubmit}>
         <div className="w-full flex gap-2 items-center">
