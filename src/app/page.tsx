@@ -153,6 +153,9 @@ export default function Home() {
             <option value="es">
               <ReactCountryFlag countryCode="ES" />
             </option>
+            <option value="fr">
+              <ReactCountryFlag countryCode="FR" />
+            </option>
           </select>
 
           <button
