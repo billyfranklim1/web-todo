@@ -1,8 +1,51 @@
 "use client";
-import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import { useState } from "react";
+import { FaEdit, FaTrash, FaPlus, FaSun, FaMoon } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import i18n from "i18next";
+import { useTranslation, initReactI18next } from "react-i18next";
+import ReactCountryFlag from "react-country-flag";
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: {
+        "What are you going to do today?": "What are you going to do today?",
+        "Add your task here ...": "Add your task here ...",
+        "Press Enter to save task": "Press Enter to save task",
+      },
+    },
+    es: {
+      translation: {
+        "What are you going to do today?": "¿Qué vas a hacer hoy?",
+        "Add your task here ...": "Agrega tu tarea aquí ...",
+        "Press Enter to save task": "Presiona Enter para guardar la tarea",
+      },
+    },
+    fr: {
+      translation: {
+        "What are you going to do today?": "Que vas-tu faire aujourd'hui?",
+        "Add your task here ...": "Ajoutez votre tâche ici ...",
+        "Press Enter to save task":
+          "Appuyez sur Entrée pour enregistrer la tâche",
+      },
+    },
+    pt: {
+      translation: {
+        "What are you going to do today?": "O que você vai fazer hoje?",
+        "Add your task here ...": "Adicione sua tarefa aqui ...",
+        "Press Enter to save task": "Pressione Enter para salvar a tarefa",
+      },
+    },
+  },
+  lng: "en",
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+  },
+});
 
 export default function Home() {
+  const { t } = useTranslation();
   interface Task {
     id: number;
     title: string;
@@ -15,6 +58,33 @@ export default function Home() {
     completed: false,
   });
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [language, setLanguage] = useState("en");
+
+  const handleChangeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+    setLanguage(lang);
+  };
+
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    console.log("darkMode", darkMode);
+  };
+
+  useEffect(() => {
+    const isDarkMode = localStorage.getItem("darkMode") === "true";
+    setDarkMode(isDarkMode);
+  }, []);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("darkMode", darkMode ? "true" : "false");
+  }, [darkMode]);
 
   const handleAddTask = (event: any) => {
     setTodo({
@@ -63,35 +133,70 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center py-2 mt-64">
-      <h1 className="text-4xl font-bold text-gray-800 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
-        What are you going to do today?
-      </h1>
-      <form className="w-96 mb-2" onSubmit={handleSubmit}>
-        <div className="w-full flex gap-2 items-center">
-          <input
-            type="text"
-            className="border-2 border-gray-100 rounded-md py-2 px-4 w-full h-12"
-            placeholder="Add your task here ..."
-            value={todo.title}
-            onChange={handleAddTask}
-          />
+    <div className=" bg-white dark:bg-gray-800 h-screen w-screen">
+      <header className="flex justify-between items-center p-4">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          {t("Todo List")}
+        </h1>
+        <div className="flex gap-2 items-center">
+          <select
+            value={language}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-900 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-600 font-bold py-2 px-4 rounded-md"
+            onChange={(e) => handleChangeLanguage(e.target.value)}
+          >
+            <option value="en">
+              <ReactCountryFlag countryCode="US" />
+            </option>
+            <option value="pt">
+              <ReactCountryFlag countryCode="BR" />
+            </option>
+            <option value="es">
+              <ReactCountryFlag countryCode="ES" />
+            </option>
+          </select>
 
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center justify-center py-2 px-4 h-12"
-            type="submit"
+            onClick={toggleDarkMode}
+            className="flex items-center justify-center bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md"
           >
-            <FaPlus />
+            {darkMode ? (
+              <FaSun className="text-xl" />
+            ) : (
+              <FaMoon className="text-xl" />
+            )}
           </button>
         </div>
-        <p className="text-gray-500 text-xs mt-2">
-          Press Enter to save task
-        </p>
-      </form>
-      <div className="flex flex-col items-center justify-center w-96">
-        {tasks.length > 0 &&
-          tasks
-            .map((task, i) => (
+      </header>
+
+      <main className="flex flex-col items-center justify-center py-2 mt-64">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
+          {t("What are you going to do today?")}
+        </h1>
+        <form className="w-96 mb-2" onSubmit={handleSubmit}>
+          <div className="w-full flex gap-2 items-center">
+            <input
+              type="text"
+              className="border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 w-full h-12 dark:bg-gray-700 dark:text-white"
+              placeholder={t("Add your task here ...")}
+              value={todo.title}
+              onChange={handleAddTask}
+            />
+
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center justify-center py-2 px-4 h-12"
+              type="submit"
+            >
+              <FaPlus />
+            </button>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 text-xs mt-2">
+            {t("Press Enter to save task")}
+          </p>
+        </form>
+
+        <div className="flex flex-col items-center justify-center w-96">
+          {tasks.length > 0 &&
+            tasks.map((task, i) => (
               <li
                 key={i}
                 className="bg-gray-100 w-full rounded-md flex justify-between items-center p-2 m-2"
@@ -130,7 +235,8 @@ export default function Home() {
                 </div>
               </li>
             ))}
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
   );
 }
