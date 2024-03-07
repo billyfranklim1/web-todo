@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
 import ReactCountryFlag from "react-country-flag";
+import Image from "next/image";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -171,11 +172,11 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex flex-col items-center justify-center py-2 mt-64">
+      <main className="flex flex-col items-center justify-center py-2 mt-4">
         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
           {t("What are you going to do today?")}
         </h1>
-        <form className="w-96 mb-2" onSubmit={handleSubmit}>
+        <form className="w-8/12 mb-2" onSubmit={handleSubmit}>
           <div className="w-full flex gap-2 items-center">
             <input
               type="text"
@@ -197,7 +198,16 @@ export default function Home() {
           </p>
         </form>
 
-        <div className="flex flex-col items-center justify-center w-96">
+        <div className="flex justify-between  mb-4 w-8/12">
+          <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
+            {t("Created")} ({tasks.filter((task) => !task.completed).length})
+          </h2>
+          <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
+            {t("Completed")} ({tasks.filter((task) => task.completed).length})
+          </h2>
+        </div>
+
+        <div className="flex flex-col items-center justify-center w-8/12">
           {tasks.length > 0 &&
             tasks.map((task, i) => (
               <li
@@ -209,18 +219,23 @@ export default function Home() {
                     id={`default-checkbox${i}`}
                     type="checkbox"
                     value=""
-                    className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     checked={task.completed}
                     onChange={() => handleCompleteTask(i)}
                   />
-                  <label
-                    htmlFor={`default-checkbox${i}`}
-                    className={`ms-2 text-sx font-medium ${
-                      task.completed ? "line-through" : ""
-                    }`}
-                  >
-                    {task.title}
-                  </label>
+                  <div className="flex items-left flex-col ms-2 justify-center">
+                    <label
+                      htmlFor={`default-checkbox${i}`}
+                      className={`text-sx font-medium ${
+                        task.completed ? "line-through" : ""
+                      }`}
+                    >
+                      {task.title}
+                    </label>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      lorem ipsum
+                    </span>
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <button
@@ -238,6 +253,20 @@ export default function Home() {
                 </div>
               </li>
             ))}
+
+          {tasks.length === 0 && (
+            <div className="w-full flex justify-center items-center flex-col">
+              <Image
+                src="/images/empty.jpg"
+                alt="Empty tasks"
+                width={300}
+                height={300}
+              />
+              <p className="text-gray-500 dark:text-gray-400 text-md mt-2">
+                {t("No tasks to show")}
+              </p>
+            </div>
+          )}
         </div>
       </main>
     </div>
