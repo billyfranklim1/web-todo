@@ -5,6 +5,8 @@ import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
 import ReactCountryFlag from "react-country-flag";
 import Image from "next/image";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -13,6 +15,12 @@ i18n.use(initReactI18next).init({
         "What are you going to do today?": "What are you going to do today?",
         "Add your task here ...": "Add your task here ...",
         "Press Enter to save task": "Press Enter to save task",
+        "Todo List": "Todo List",
+        "Created": "Created",
+        "Completed": "Completed",
+        "No tasks to show": "No tasks to show",
+        "Task added successfully": "Task added successfully",
+        "Task updated successfully": "Task updated successfully",
       },
     },
     es: {
@@ -20,6 +28,12 @@ i18n.use(initReactI18next).init({
         "What are you going to do today?": "¿Qué vas a hacer hoy?",
         "Add your task here ...": "Agrega tu tarea aquí ...",
         "Press Enter to save task": "Presiona Enter para guardar la tarea",
+        "Todo List": "Lista de tareas",
+        "Created": "Creadas",
+        "Completed": "Completadas",
+        "No tasks to show": "No hay tareas para mostrar",
+        "Task added successfully": "Tarea agregada con éxito",
+        "Task updated successfully": "Tarea actualizada con éxito",
       },
     },
     fr: {
@@ -27,7 +41,13 @@ i18n.use(initReactI18next).init({
         "What are you going to do today?": "Que vas-tu faire aujourd'hui?",
         "Add your task here ...": "Ajoutez votre tâche ici ...",
         "Press Enter to save task":
-          "Appuyez sur Entrée pour enregistrer la tâche",
+        "Appuyez sur Entrée pour enregistrer la tâche",
+        "Todo List": "Liste de choses à faire",
+        "Created": "Créées",
+        "Completed": "Terminées",
+        "No tasks to show": "Aucune tâche à afficher",
+        "Task added successfully": "Tâche ajoutée avec succès",
+        "Task updated successfully": "Tâche mise à jour avec succès",
       },
     },
     pt: {
@@ -35,6 +55,12 @@ i18n.use(initReactI18next).init({
         "What are you going to do today?": "O que você vai fazer hoje?",
         "Add your task here ...": "Adicione sua tarefa aqui ...",
         "Press Enter to save task": "Pressione Enter para salvar a tarefa",
+        "Todo List": "Lista de tarefas",
+        "Created": "Criadas",
+        "Completed": "Completadas",
+        "No tasks to show": "Nenhuma tarefa para mostrar",
+        "Task added successfully": "Tarefa adicionada com sucesso",
+        "Task updated successfully": "Tarefa atualizada com sucesso",
       },
     },
   },
@@ -108,11 +134,20 @@ export default function Home() {
         title: "",
         completed: false,
       });
+
+      toast.success(t("Task updated successfully"), {
+        position: "top-right",
+        autoClose: 2000,
+      });
       return;
     }
 
     setTasks([...tasks, todo]);
     setTodo({ id: 0, title: "", completed: false });
+    toast.success(t("Task added successfully"), {
+      position: "top-right",
+      autoClose: 2000,
+    });
   };
 
   const handleCompleteTask = (index: number) => {
@@ -212,7 +247,7 @@ export default function Home() {
             tasks.map((task, i) => (
               <li
                 key={i}
-                className="bg-gray-100 w-full rounded-md flex justify-between items-center p-2 m-2"
+                className="w-full flex justify-between items-center bg-gray-100 dark:bg-gray-700 rounded-md p-2 mb-2"
               >
                 <div className="flex items-center align-center">
                   <input
@@ -228,7 +263,7 @@ export default function Home() {
                       htmlFor={`default-checkbox${i}`}
                       className={`text-sx font-medium ${
                         task.completed ? "line-through" : ""
-                      }`}
+                      } text-gray-800 dark:text-gray-300`}
                     >
                       {task.title}
                     </label>
@@ -239,13 +274,13 @@ export default function Home() {
                 </div>
                 <div className="flex gap-2">
                   <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
+                    className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
                     onClick={() => handleDeleteTask(i)}
                   >
                     <FaTrash size={13} />
                   </button>
                   <button
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
+                    className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
                     onClick={() => handleEditTask(i)}
                   >
                     <FaEdit size={13} />
@@ -269,6 +304,8 @@ export default function Home() {
           )}
         </div>
       </main>
+
+      <ToastContainer />
     </div>
   );
 }
