@@ -23,6 +23,7 @@ i18n.use(initReactI18next).init({
         "Created": "Created",
         "Completed": "Completed",
         "No tasks to show": "No tasks to show",
+        "Create task and organize your day": "Create task and organize your day",
         "Task added successfully": "Task added successfully",
         "Task updated successfully": "Task updated successfully",
       },
@@ -38,6 +39,7 @@ i18n.use(initReactI18next).init({
         "Created": "Creadas",
         "Completed": "Completadas",
         "No tasks to show": "No hay tareas para mostrar",
+        "Create task and organize your day": "Crea tareas y organiza tu día",
         "Task added successfully": "Tarea agregada con éxito",
         "Task updated successfully": "Tarea actualizada con éxito",
       },
@@ -54,6 +56,7 @@ i18n.use(initReactI18next).init({
         "Created": "Créées",
         "Completed": "Terminées",
         "No tasks to show": "Aucune tâche à afficher",
+        "Create task and organize your day": "Créez des tâches et organisez votre journée",
         "Task added successfully": "Tâche ajoutée avec succès",
         "Task updated successfully": "Tâche mise à jour avec succès",
       },
@@ -68,7 +71,8 @@ i18n.use(initReactI18next).init({
         "Add": "Adicionar",
         "Created": "Criadas",
         "Completed": "Completadas",
-        "No tasks to show": "Nenhuma tarefa para mostrar",
+        "No tasks to show": "Você ainda não tem tarefas cadastradas",
+        "Create task and organize your day": "Crie tarefas e organize seu dia",
         "Task added successfully": "Tarefa adicionada com sucesso",
         "Task updated successfully": "Tarefa atualizada com sucesso",
       },
@@ -77,7 +81,7 @@ i18n.use(initReactI18next).init({
   lng: "en",
   fallbackLng: "en",
   interpolation: {
-    escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    escapeValue: false,
   },
 });
 
@@ -218,8 +222,8 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex flex-col items-center justify-center py-2 h-screen">
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
+      <main className="flex flex-col items-center py-2 h-screen">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
           {t("What are you going to do today?")}
         </h1>
         <form className="w-8/12 mb-10" onSubmit={handleSubmit}>
@@ -308,11 +312,14 @@ export default function Home() {
               <Image
                 src="/images/empty.jpg"
                 alt="Empty tasks"
-                width={300}
-                height={300}
+                width={200}
+                height={200}
               />
-              <p className="text-gray-500 dark:text-gray-400 text-md mt-2">
+              <p className="text-gray-500 dark:text-gray-400 text-md mt-2 font-bold">
                 {t("No tasks to show")}
+              </p>
+              <p className="text-gray-500 dark:text-gray-400 text-md">
+                {t("Create task and organize your day")}
               </p>
             </div>
           )}
