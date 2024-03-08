@@ -180,7 +180,7 @@ export default function Home() {
   };
 
   return (
-    <div className=" bg-white dark:bg-gray-800 h-screen w-screen">
+    <div className=" bg-white dark:bg-gray-800 w-screen">
       <header className="flex justify-between items-center p-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           {t("Todo List")}
@@ -218,7 +218,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex flex-col items-center justify-center py-2">
+      <main className="flex flex-col items-center justify-center py-2 h-screen">
         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
           {t("What are you going to do today?")}
         </h1>
@@ -248,7 +248,6 @@ export default function Home() {
           </div>
           
         </form>
-
         <div className="flex justify-between  mb-4 w-8/12">
           <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
             {t("Created")} ({tasks.filter((task) => !task.completed).length})
@@ -257,7 +256,6 @@ export default function Home() {
             {t("Completed")} ({tasks.filter((task) => task.completed).length} {t("of")} {tasks.length})
           </h2>
         </div>
-
         <div className="flex flex-col items-center justify-center w-8/12">
           {tasks.length > 0 &&
             tasks.map((task, i) => (
@@ -305,7 +303,7 @@ export default function Home() {
               </li>
             ))}
 
-          {/* {tasks.length === 0 && (
+          {tasks.length === 0 && (
             <div className="w-full flex justify-center items-center flex-col">
               <Image
                 src="/images/empty.jpg"
@@ -317,15 +315,8 @@ export default function Home() {
                 {t("No tasks to show")}
               </p>
             </div>
-          )} */}
+          )}
 
-          {/*   add skeleton loading */}
-          {Array(10).fill(0).map((_, i) => (
-            <div>
-              <Skeleton />
-              <Skeleton count={5} />
-            </div>
-          ))}
         </div>
       </main>
 
