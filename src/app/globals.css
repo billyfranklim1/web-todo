@@ -19,3 +19,22 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.custom-checkbox:checked + label::before {
+  color: white;
+  background-color: #3b82f6;
+  text-align: center;
+  line-height: 1.2em;
+}
+.custom-checkbox + label::before {
+  content: '';
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.5em;
+  border-radius: 50%;
+  border: 2px solid gray;
+  background-color: white;
+  vertical-align: bottom;
+}

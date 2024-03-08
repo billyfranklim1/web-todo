@@ -109,7 +109,6 @@ export default function Home() {
   const [language, setLanguage] = useState("en");
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
 
-
   useEffect(() => {
     setTimeout(() => {
       setShowSkeleton(false);
@@ -288,22 +287,22 @@ export default function Home() {
               >
                 <div className="flex items-center align-center">
                   <input
-                    id={`default-checkbox${i}`}
+                    id={`default-checkbox-${i}`}
                     type="checkbox"
-                    value=""
-                    className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    name="taskCompletion"
+                    className="custom-checkbox opacity-0 absolute"
                     checked={task.completed}
                     onChange={() => handleCompleteTask(i)}
                   />
+                  <label
+                    htmlFor={`default-checkbox-${i}`}
+                    className={`cursor-pointer text-sx font-medium ${
+                      task.completed ? "line-through" : ""
+                    } text-gray-800 dark:text-gray-300 flex items-center`}
+                  >
+                    {task.title}
+                  </label>
                   <div className="flex items-left flex-col ms-2 justify-center">
-                    <label
-                      htmlFor={`default-checkbox${i}`}
-                      className={`text-sx font-medium ${
-                        task.completed ? "line-through" : ""
-                      } text-gray-800 dark:text-gray-300`}
-                    >
-                      {task.title}
-                    </label>
                     <span className="text-xs text-gray-500 dark:text-gray-400">
                       {task.description ? task.description : "Sem descrição"}
                     </span>
@@ -343,21 +342,27 @@ export default function Home() {
             </div>
           )}
 
-          {showSkeleton && Array(5).fill(0).map((_, i) => (
-            <div className="w-full flex justify-between items-center bg-gray-100 dark:bg-gray-700 rounded-md p-2 mb-2" key={i}>
-              <div className="flex items-center align-center">
-                <Skeleton width={20} height={20} circle={true} />
-                <div className="flex items-left flex-col ms-2 justify-center">
-                  <Skeleton width={100} height={20} />
-                  <Skeleton width={200} height={20} />
+          {showSkeleton &&
+            Array(5)
+              .fill(0)
+              .map((_, i) => (
+                <div
+                  className="w-full flex justify-between items-center bg-gray-100 dark:bg-gray-700 rounded-md p-2 mb-2"
+                  key={i}
+                >
+                  <div className="flex items-center align-center">
+                    <Skeleton width={20} height={20} circle={true} />
+                    <div className="flex items-left flex-col ms-2 justify-center">
+                      <Skeleton width={100} height={20} />
+                      <Skeleton width={200} height={20} />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Skeleton width={20} height={20} circle={true} />
+                    <Skeleton width={20} height={20} circle={true} />
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-2">
-                <Skeleton width={20} height={20} circle={true} />
-                <Skeleton width={20} height={20} circle={true} />
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
       </main>
 
