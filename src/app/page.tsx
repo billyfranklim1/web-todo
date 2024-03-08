@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -98,16 +99,28 @@ export default function Home() {
     title: string;
     description?: string;
     completed: boolean;
+    index: number;
   }
 
   const [todo, setTodo] = useState<Task>({
     id: null,
     title: "",
+    description: "",
     completed: false,
+    index: 0,
   });
   const [tasks, setTasks] = useState<Task[]>([]);
   const [language, setLanguage] = useState("en");
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
+
+  const sortTasks = (tasks: Task[]) => {
+    return tasks.sort((a, b) => {
+      if (a.completed === b.completed) {
+        return a.index - b.index;
+      }
+      return a.completed ? 1 : -1;
+    });
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -145,6 +158,7 @@ export default function Home() {
       id: todo.id ? todo.id : tasks.length + 1,
       title: event.target.value,
       completed: false,
+      index: tasks.length + 1,
     });
   };
 
@@ -155,12 +169,13 @@ export default function Home() {
     const taskExists = tasks.find((task) => task.id === todo.id);
     if (taskExists) {
       const newTasks = tasks.map((task) => (task.id === todo.id ? todo : task));
-      setTasks(newTasks);
+      setTasks(sortTasks(newTasks));
       setTodo({
         id: null,
         title: "",
         description: "",
         completed: false,
+        index: 0,
       });
 
       toast.success(t("Task updated successfully"), {
@@ -169,8 +184,23 @@ export default function Home() {
       });
       return;
     }
-    setTasks([...tasks, { ...todo, id: todo.id ? todo.id : tasks.length + 1 }]);
-    setTodo({ id: null, title: "", description: "", completed: false });
+    setTasks(
+      sortTasks([
+        ...tasks,
+        {
+          ...todo,
+          id: todo.id ? todo.id : tasks.length + 1,
+          index: tasks.length + 1,
+        },
+      ])
+    );
+    setTodo({
+      id: null,
+      title: "",
+      description: "",
+      completed: false,
+      index: 0,
+    });
     toast.success(t("Task added successfully"), {
       position: "top-right",
       autoClose: 2000,
@@ -180,13 +210,14 @@ export default function Home() {
   const handleCompleteTask = (index: number) => {
     const newTasks = [...tasks];
     newTasks[index].completed = !newTasks[index].completed;
-    setTasks(newTasks);
+    setTasks(sortTasks(newTasks)); // Resort tasks
   };
 
   const handleDeleteTask = (index: number) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
-    setTasks(newTasks);
+    // setTasks(newTasks);
+    setTasks(sortTasks(newTasks));
   };
 
   const handleEditTask = (index: number) => {
@@ -233,6 +264,8 @@ export default function Home() {
           </button>
         </div>
       </header>
+
+      <pre>{JSON.stringify(tasks, null, 2)}</pre>
 
       <main className="flex flex-col items-center py-2 h-screen">
         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
@@ -281,48 +314,57 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center w-8/12">
           {tasks.length > 0 &&
             tasks.map((task, i) => (
-              <li
-                key={i}
-                className="w-full flex justify-between items-center bg-gray-100 dark:bg-gray-700 rounded-md p-2 mb-2"
+              <motion.div
+                key={task.id}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                layout
+                className="w-full"
               >
-                <div className="flex items-center align-center">
-                  <input
-                    id={`default-checkbox-${i}`}
-                    type="checkbox"
-                    name="taskCompletion"
-                    className="custom-checkbox opacity-0 absolute"
-                    checked={task.completed}
-                    onChange={() => handleCompleteTask(i)}
-                  />
-                  <label
-                    htmlFor={`default-checkbox-${i}`}
-                    className={`cursor-pointer text-sx font-medium ${
-                      task.completed ? "line-through" : ""
-                    } text-gray-800 dark:text-gray-300 flex items-center`}
-                  >
-                    {task.title}
-                  </label>
-                  <div className="flex items-left flex-col ms-2 justify-center">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {task.description ? task.description : "Sem descrição"}
-                    </span>
+                <li
+                  key={i}
+                  className="w-full flex justify-between items-center bg-gray-100 dark:bg-gray-700 rounded-md p-2 mb-2"
+                >
+                  <div className="flex items-center align-center">
+                    <input
+                      id={`default-checkbox-${i}`}
+                      type="checkbox"
+                      name="taskCompletion"
+                      className="custom-checkbox opacity-0 absolute"
+                      checked={task.completed}
+                      onChange={() => handleCompleteTask(i)}
+                    />
+                    <label
+                      htmlFor={`default-checkbox-${i}`}
+                      className={`cursor-pointer text-sx font-medium ${
+                        task.completed ? "line-through" : ""
+                      } text-gray-800 dark:text-gray-300 flex items-center`}
+                    >
+                      {task.title}
+                    </label>
+                    <div className="flex items-left flex-col ms-2 justify-center">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {task.description ? task.description : "Sem descrição"}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
-                    onClick={() => handleDeleteTask(i)}
-                  >
-                    <FaTrash size={13} />
-                  </button>
-                  <button
-                    className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
-                    onClick={() => handleEditTask(i)}
-                  >
-                    <FaEdit size={13} />
-                  </button>
-                </div>
-              </li>
+                  <div className="flex gap-2">
+                    <button
+                      className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
+                      onClick={() => handleDeleteTask(i)}
+                    >
+                      <FaTrash size={13} />
+                    </button>
+                    <button
+                      className="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-300 font-bold py-2 px-2 rounded-md h-8 w-8 flex items-center justify-center"
+                      onClick={() => handleEditTask(i)}
+                    >
+                      <FaEdit size={13} />
+                    </button>
+                  </div>
+                </li>
+              </motion.div>
             ))}
 
           {tasks.length === 0 && (
