@@ -113,12 +113,24 @@ export default function Home() {
   const [language, setLanguage] = useState("en");
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
 
+  // const sortTasks = (tasks: Task[]) => {
+  //   return tasks.sort((a, b) => {
+  //     if (a.completed === b.completed) {
+  //       return a.index - b.index;
+  //     }
+  //     return a.completed ? 1 : -1;
+  //   });
+  // };
+
   const sortTasks = (tasks: Task[]) => {
     return tasks.sort((a, b) => {
-      if (a.completed === b.completed) {
-        return a.index - b.index;
+      // Prioritize incomplete tasks (a.completed === false)
+      if (a.completed !== b.completed) { 
+        return a.completed ? 1 : -1; // completed: true goes to the bottom
       }
-      return a.completed ? 1 : -1;
+  
+      // If both are completed or incomplete, sort by ID in descending order
+      return b.index - a.index;  
     });
   };
 
@@ -265,8 +277,6 @@ export default function Home() {
         </div>
       </header>
 
-      <pre>{JSON.stringify(tasks, null, 2)}</pre>
-
       <main className="flex flex-col items-center py-2 h-screen">
         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
           {t("What are you going to do today?")}
@@ -316,9 +326,9 @@ export default function Home() {
             tasks.map((task, i) => (
               <motion.div
                 key={task.id}
-                initial={{ opacity: 0, x: -10 }}
+                // initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
+                // exit={{ opacity: 0, x: 10 }}
                 layout
                 className="w-full"
               >
