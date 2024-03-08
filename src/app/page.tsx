@@ -1,5 +1,5 @@
 "use client";
-import { FaEdit, FaTrash, FaPlus, FaSun, FaMoon } from "react-icons/fa";
+import { FaEdit, FaTrash, FaPlusCircle, FaSun, FaMoon } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
@@ -7,6 +7,8 @@ import ReactCountryFlag from "react-country-flag";
 import Image from "next/image";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -14,7 +16,9 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "What are you going to do today?",
         "Add your task here ...": "Add your task here ...",
+        "Add your task description here ...": "Add your task description here ...",
         "Press Enter to save task": "Press Enter to save task",
+        "Add": "Add",
         "Todo List": "Todo List",
         "Created": "Created",
         "Completed": "Completed",
@@ -27,8 +31,10 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "¿Qué vas a hacer hoy?",
         "Add your task here ...": "Agrega tu tarea aquí ...",
+        "Add your task description here ...": "Agrega la descripción de tu tarea aquí ...",
         "Press Enter to save task": "Presiona Enter para guardar la tarea",
         "Todo List": "Lista de tareas",
+        "Add": "Añadir",
         "Created": "Creadas",
         "Completed": "Completadas",
         "No tasks to show": "No hay tareas para mostrar",
@@ -40,9 +46,11 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "Que vas-tu faire aujourd'hui?",
         "Add your task here ...": "Ajoutez votre tâche ici ...",
+        "Add your task description here ...": "Ajoutez la description de votre tâche ici ...",
         "Press Enter to save task":
         "Appuyez sur Entrée pour enregistrer la tâche",
         "Todo List": "Liste de choses à faire",
+        "Add": "Ajouter",
         "Created": "Créées",
         "Completed": "Terminées",
         "No tasks to show": "Aucune tâche à afficher",
@@ -54,8 +62,10 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "O que você vai fazer hoje?",
         "Add your task here ...": "Adicione sua tarefa aqui ...",
+        "Add your task description here ...": "Adicione a descrição da sua tarefa aqui ...",
         "Press Enter to save task": "Pressione Enter para salvar a tarefa",
         "Todo List": "Lista de tarefas",
+        "Add": "Adicionar",
         "Created": "Criadas",
         "Completed": "Completadas",
         "No tasks to show": "Nenhuma tarefa para mostrar",
@@ -74,13 +84,14 @@ i18n.use(initReactI18next).init({
 export default function Home() {
   const { t } = useTranslation();
   interface Task {
-    id: number;
+    id: number | null;
     title: string;
+    description?: string;
     completed: boolean;
   }
 
   const [todo, setTodo] = useState<Task>({
-    id: 0,
+    id: null,
     title: "",
     completed: false,
   });
@@ -130,8 +141,9 @@ export default function Home() {
       const newTasks = tasks.map((task) => (task.id === todo.id ? todo : task));
       setTasks(newTasks);
       setTodo({
-        id: 0,
+        id: null,
         title: "",
+        description: "",
         completed: false,
       });
 
@@ -141,9 +153,8 @@ export default function Home() {
       });
       return;
     }
-
-    setTasks([...tasks, todo]);
-    setTodo({ id: 0, title: "", completed: false });
+    setTasks([...tasks, { ...todo, id: todo.id ? todo.id : tasks.length + 1 }]);
+    setTodo({ id: null, title: "", description: "", completed: false });
     toast.success(t("Task added successfully"), {
       position: "top-right",
       autoClose: 2000,
@@ -207,30 +218,35 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="flex flex-col items-center justify-center py-2 mt-4">
+      <main className="flex flex-col items-center justify-center py-2">
         <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
           {t("What are you going to do today?")}
         </h1>
-        <form className="w-8/12 mb-2" onSubmit={handleSubmit}>
-          <div className="w-full flex gap-2 items-center">
+        <form className="w-8/12 mb-10" onSubmit={handleSubmit}>
+          <div className="w-full flex gap-2 items-center flex-col">
             <input
               type="text"
-              className="border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 w-full h-12 dark:bg-gray-700 dark:text-white"
+              className="flex border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 w-full h-12 dark:bg-gray-700 dark:text-white"
               placeholder={t("Add your task here ...")}
               value={todo.title}
-              onChange={handleAddTask}
+              onChange={(e) => setTodo({ ...todo, title: e.target.value })}
             />
+            <textarea className="border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 w-full h-20 dark:bg-gray-700 dark:text-white" placeholder={t("Add your task description here ...")} value={todo.description} onChange={(e) => setTodo({ ...todo, description: e.target.value })} />
+            <p className="text-gray-500 dark:text-gray-400 text-xs w-full rounded-md flex items-center justify-star">
+              {t("Press Enter to save task")}
+            </p>
+            <div className="w-full rounded-md flex items-center justify-end">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center justify-center py-2 px-4 gap-2"
+                type="submit"
+              >
+                {t("Add")}
+                <FaPlusCircle /> 
+              </button>
+            </div>
 
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center justify-center py-2 px-4 h-12"
-              type="submit"
-            >
-              <FaPlus />
-            </button>
           </div>
-          <p className="text-gray-500 dark:text-gray-400 text-xs mt-2">
-            {t("Press Enter to save task")}
-          </p>
+          
         </form>
 
         <div className="flex justify-between  mb-4 w-8/12">
@@ -238,7 +254,7 @@ export default function Home() {
             {t("Created")} ({tasks.filter((task) => !task.completed).length})
           </h2>
           <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
-            {t("Completed")} ({tasks.filter((task) => task.completed).length})
+            {t("Completed")} ({tasks.filter((task) => task.completed).length} {t("of")} {tasks.length})
           </h2>
         </div>
 
@@ -268,7 +284,7 @@ export default function Home() {
                       {task.title}
                     </label>
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      lorem ipsum
+                      {task.description ? task.description : "Sem descrição"}
                     </span>
                   </div>
                 </div>
@@ -289,7 +305,7 @@ export default function Home() {
               </li>
             ))}
 
-          {tasks.length === 0 && (
+          {/* {tasks.length === 0 && (
             <div className="w-full flex justify-center items-center flex-col">
               <Image
                 src="/images/empty.jpg"
@@ -301,7 +317,15 @@ export default function Home() {
                 {t("No tasks to show")}
               </p>
             </div>
-          )}
+          )} */}
+
+          {/*   add skeleton loading */}
+          {Array(10).fill(0).map((_, i) => (
+            <div>
+              <Skeleton />
+              <Skeleton count={5} />
+            </div>
+          ))}
         </div>
       </main>
 
