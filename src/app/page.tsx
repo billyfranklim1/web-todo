@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -113,24 +113,13 @@ export default function Home() {
   const [language, setLanguage] = useState("en");
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
 
-  // const sortTasks = (tasks: Task[]) => {
-  //   return tasks.sort((a, b) => {
-  //     if (a.completed === b.completed) {
-  //       return a.index - b.index;
-  //     }
-  //     return a.completed ? 1 : -1;
-  //   });
-  // };
-
   const sortTasks = (tasks: Task[]) => {
     return tasks.sort((a, b) => {
-      // Prioritize incomplete tasks (a.completed === false)
-      if (a.completed !== b.completed) { 
-        return a.completed ? 1 : -1; // completed: true goes to the bottom
+      if (a.completed !== b.completed) {
+        return a.completed ? 1 : -1; 
       }
-  
-      // If both are completed or incomplete, sort by ID in descending order
-      return b.index - a.index;  
+
+      return b.index - a.index;
     });
   };
 
@@ -222,13 +211,12 @@ export default function Home() {
   const handleCompleteTask = (index: number) => {
     const newTasks = [...tasks];
     newTasks[index].completed = !newTasks[index].completed;
-    setTasks(sortTasks(newTasks)); // Resort tasks
+    setTasks(sortTasks(newTasks));
   };
 
   const handleDeleteTask = (index: number) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1);
-    // setTasks(newTasks);
     setTasks(sortTasks(newTasks));
   };
 
@@ -247,7 +235,7 @@ export default function Home() {
         <div className="flex gap-2 items-center">
           <select
             value={language}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-900 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-600 font-bold py-2 px-4 rounded-md"
+            className="bg-gray-300 hover:bg-gray-400 text-gray-900 dark:text-white dark:bg-gray-700 dark:hover:bg-gray-600 font-bold py-1 px-2 rounded-md"
             onChange={(e) => handleChangeLanguage(e.target.value)}
           >
             <option value="en">
@@ -264,16 +252,26 @@ export default function Home() {
             </option>
           </select>
 
-          <button
+          <motion.div
+            initial={darkMode ? "dark" : "light"}
+            animate={darkMode ? "dark" : "light"}
+            className="rounded-full bg-gray-300 w-14 h-8 flex items-center justify-start p-1 dark:bg-gray-700"
             onClick={toggleDarkMode}
-            className="flex items-center justify-center bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md"
           >
-            {darkMode ? (
-              <FaSun className="text-xl" />
-            ) : (
-              <FaMoon className="text-xl" />
-            )}
-          </button>
+            <motion.div
+              initial={darkMode ? "dark" : "light"}
+              animate={darkMode ? "dark" : "light"}
+              variants={{
+                dark: { x: 28 },
+                light: { x: 2 },
+              }}
+              className={`w-4 h-4 rounded-full flex items-center justify-center`}
+            >
+              {darkMode ? <FaSun color="yellow" /> : <FaMoon color="gray" />}
+            </motion.div>
+          </motion.div>
+
+       
         </div>
       </header>
 
