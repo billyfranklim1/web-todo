@@ -236,12 +236,12 @@ export default function Home() {
               onChange={(e) => setTodo({ ...todo, title: e.target.value })}
             />
             <textarea className="border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 w-full h-20 dark:bg-gray-700 dark:text-white" placeholder={t("Add your task description here ...")} value={todo.description} onChange={(e) => setTodo({ ...todo, description: e.target.value })} />
-            <p className="text-gray-500 dark:text-gray-400 text-xs w-full rounded-md flex items-center justify-star">
-              {t("Press Enter to save task")}
-            </p>
-            <div className="w-full rounded-md flex items-center justify-end">
+            <div className="w-full rounded-md flex items-start">
+              <p className="text-gray-500 dark:text-gray-400 text-xs w-full">
+                {t("Press Enter to save task")}
+              </p>
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center justify-center py-2 px-4 gap-2"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-md flex items-center py-2 px-4 gap-2"
                 type="submit"
               >
                 {t("Add")}
