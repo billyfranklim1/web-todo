@@ -5,10 +5,10 @@ import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
 import ReactCountryFlag from "react-country-flag";
 import Image from "next/image";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -16,14 +16,16 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "What are you going to do today?",
         "Add your task here ...": "Add your task here ...",
-        "Add your task description here ...": "Add your task description here ...",
+        "Add your task description here ...":
+          "Add your task description here ...",
         "Press Enter to save task": "Press Enter to save task",
-        "Add": "Add",
+        Add: "Add",
         "Todo List": "Todo List",
-        "Created": "Created",
-        "Completed": "Completed",
+        Created: "Created",
+        Completed: "Completed",
         "No tasks to show": "No tasks to show",
-        "Create task and organize your day": "Create task and organize your day",
+        "Create task and organize your day":
+          "Create task and organize your day",
         "Task added successfully": "Task added successfully",
         "Task updated successfully": "Task updated successfully",
       },
@@ -32,12 +34,13 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "¿Qué vas a hacer hoy?",
         "Add your task here ...": "Agrega tu tarea aquí ...",
-        "Add your task description here ...": "Agrega la descripción de tu tarea aquí ...",
+        "Add your task description here ...":
+          "Agrega la descripción de tu tarea aquí ...",
         "Press Enter to save task": "Presiona Enter para guardar la tarea",
         "Todo List": "Lista de tareas",
-        "Add": "Añadir",
-        "Created": "Creadas",
-        "Completed": "Completadas",
+        Add: "Añadir",
+        Created: "Creadas",
+        Completed: "Completadas",
         "No tasks to show": "No hay tareas para mostrar",
         "Create task and organize your day": "Crea tareas y organiza tu día",
         "Task added successfully": "Tarea agregada con éxito",
@@ -48,15 +51,17 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "Que vas-tu faire aujourd'hui?",
         "Add your task here ...": "Ajoutez votre tâche ici ...",
-        "Add your task description here ...": "Ajoutez la description de votre tâche ici ...",
+        "Add your task description here ...":
+          "Ajoutez la description de votre tâche ici ...",
         "Press Enter to save task":
-        "Appuyez sur Entrée pour enregistrer la tâche",
+          "Appuyez sur Entrée pour enregistrer la tâche",
         "Todo List": "Liste de choses à faire",
-        "Add": "Ajouter",
-        "Created": "Créées",
-        "Completed": "Terminées",
+        Add: "Ajouter",
+        Created: "Créées",
+        Completed: "Terminées",
         "No tasks to show": "Aucune tâche à afficher",
-        "Create task and organize your day": "Créez des tâches et organisez votre journée",
+        "Create task and organize your day":
+          "Créez des tâches et organisez votre journée",
         "Task added successfully": "Tâche ajoutée avec succès",
         "Task updated successfully": "Tâche mise à jour avec succès",
       },
@@ -65,12 +70,13 @@ i18n.use(initReactI18next).init({
       translation: {
         "What are you going to do today?": "O que você vai fazer hoje?",
         "Add your task here ...": "Adicione sua tarefa aqui ...",
-        "Add your task description here ...": "Adicione a descrição da sua tarefa aqui ...",
+        "Add your task description here ...":
+          "Adicione a descrição da sua tarefa aqui ...",
         "Press Enter to save task": "Pressione Enter para salvar a tarefa",
         "Todo List": "Lista de tarefas",
-        "Add": "Adicionar",
-        "Created": "Criadas",
-        "Completed": "Completadas",
+        Add: "Adicionar",
+        Created: "Criadas",
+        Completed: "Completadas",
         "No tasks to show": "Você ainda não tem tarefas cadastradas",
         "Create task and organize your day": "Crie tarefas e organize seu dia",
         "Task added successfully": "Tarefa adicionada com sucesso",
@@ -100,8 +106,15 @@ export default function Home() {
     completed: false,
   });
   const [tasks, setTasks] = useState<Task[]>([]);
-
   const [language, setLanguage] = useState("en");
+  const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowSkeleton(false);
+    }, 5000);
+  }, []);
 
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -235,7 +248,14 @@ export default function Home() {
               value={todo.title}
               onChange={(e) => setTodo({ ...todo, title: e.target.value })}
             />
-            <textarea className="border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 w-full h-20 dark:bg-gray-700 dark:text-white" placeholder={t("Add your task description here ...")} value={todo.description} onChange={(e) => setTodo({ ...todo, description: e.target.value })} />
+            <textarea
+              className="border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 w-full h-20 dark:bg-gray-700 dark:text-white"
+              placeholder={t("Add your task description here ...")}
+              value={todo.description}
+              onChange={(e) =>
+                setTodo({ ...todo, description: e.target.value })
+              }
+            />
             <div className="w-full rounded-md flex items-start">
               <p className="text-gray-500 dark:text-gray-400 text-xs w-full">
                 {t("Press Enter to save task")}
@@ -245,19 +265,18 @@ export default function Home() {
                 type="submit"
               >
                 {t("Add")}
-                <FaPlusCircle /> 
+                <FaPlusCircle />
               </button>
             </div>
-
           </div>
-          
         </form>
         <div className="flex justify-between  mb-4 w-8/12">
           <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
             {t("Created")} ({tasks.filter((task) => !task.completed).length})
           </h2>
           <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
-            {t("Completed")} ({tasks.filter((task) => task.completed).length} {t("of")} {tasks.length})
+            {t("Completed")} ({tasks.filter((task) => task.completed).length}{" "}
+            {t("of")} {tasks.length})
           </h2>
         </div>
         <div className="flex flex-col items-center justify-center w-8/12">
@@ -324,6 +343,21 @@ export default function Home() {
             </div>
           )}
 
+          {showSkeleton && Array(5).fill(0).map((_, i) => (
+            <div className="w-full flex justify-between items-center bg-gray-100 dark:bg-gray-700 rounded-md p-2 mb-2" key={i}>
+              <div className="flex items-center align-center">
+                <Skeleton width={20} height={20} circle={true} />
+                <div className="flex items-left flex-col ms-2 justify-center">
+                  <Skeleton width={100} height={20} />
+                  <Skeleton width={200} height={20} />
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Skeleton width={20} height={20} circle={true} />
+                <Skeleton width={20} height={20} circle={true} />
+              </div>
+            </div>
+          ))}
         </div>
       </main>
 
