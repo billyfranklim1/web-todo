@@ -21,10 +21,10 @@ export default function TaskList({
     <>
       <div className="flex justify-between mb-4 w-8/12">
         <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
-          {t("Created")} {totals().totalTasks}
+          {t("created")} {totals().totalTasks}
         </h2>
         <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
-          {t("Completed")} {totals().completedTasks} {t("of")}{" "}
+          {t("completed")} {totals().completedTasks} {t("of")}{" "}
           {totals().totalTasks}
         </h2>
       </div>
@@ -56,10 +56,10 @@ export default function TaskList({
               height={200}
             />
             <p className="text-gray-500 dark:text-gray-400 text-md mt-2 font-bold">
-              {t("No tasks to show")}
+              {t("no_tasks_to_show")}
             </p>
             <p className="text-gray-500 dark:text-gray-400 text-md">
-              {t("Create task and organize your day")}
+              {t("create_task_and_organize_your_day")}
             </p>
           </div>
         )}

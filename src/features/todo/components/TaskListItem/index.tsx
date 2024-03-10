@@ -19,15 +19,15 @@ export default function TaskListItem({
 
   const askDelete = (task: Task) => {
     confirmAlert({
-      title: t("Delete task"),
-      message: t("Are you sure you want to delete this task?"),
+      title: t("delete_task"),
+      message: t("are_you_sure_you_want_to_delete_this_task"),
       buttons: [
         {
-          label: t("Yes"),
+          label: t("yes"),
           onClick: () => handleDeleteTask(task),
         },
         {
-          label: t("No"),
+          label: t("no"),
           onClick: () => {},
         },
       ],
@@ -69,7 +69,7 @@ export default function TaskListItem({
               {task.title}
             </label>
             <span className={`text-xs text-gray-500 dark:text-gray-400 ${ task.completed ? "line-through" : ""} `}> 
-              {task.description ? task.description : t("No description")}
+              {task.description ? task.description : t("no_description")}
             </span>
           </div>
         </div>

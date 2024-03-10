@@ -75,7 +75,7 @@ export default function Home() {
         <Header />
         <main className="flex flex-col items-center py-2 ">
           <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
-            {t("What are you going to do today?")}
+            {t("what_are_you_going_to_do_today")}
           </h1>
 
           <TaskInputForm

@@ -70,22 +70,22 @@ export default function TaskInputForm({
         <input
           type="text"
           className={`${isValid ? '' : 'border-red-500 dark:border-red-500'} ${isEditing ? "border-2 border-yellow-500 dark:border-yellow-500 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full" : "border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full"}`}
-          placeholder={t("Add your task here ...")}
+          placeholder={t("add_your_task_here")}
           value={task.title}
           onChange={(e) => setTask({ ...task, title: e.target.value })}
         />
         <p className="text-red-500 text-xs w-full mb-2">
-          {!isValid && t("This field is required")}
+          {!isValid && t("text_field_required")}
         </p>
         <textarea
           className={isEditing ? "border-2 border-yellow-500 dark:border-yellow-500 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full" : "border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full"}
-          placeholder={t("Add your task description here ...")}
+          placeholder={t("add_your_task_description_here")}
           value={task.description}
           onChange={(e) => setTask({ ...task, description: e.target.value })}
         />
         <div className="w-full rounded-md flex items-start gap-2">
           <p className="text-gray-500 dark:text-gray-400 text-xs w-full">
-            {t("Press Enter to save task")}
+            {t("press_enter_to_save_task")}
           </p>
 
           {isEditing ? (
@@ -112,7 +112,7 @@ export default function TaskInputForm({
               className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold rounded-md flex items-center py-1 px-2 gap-2"
               type="submit"
             >
-              {isEditing ? t("Update") : t("Add")}
+              {isEditing ? t("Update") : t("add")}
               <FaPlusCircle />
             </button>
           )}
