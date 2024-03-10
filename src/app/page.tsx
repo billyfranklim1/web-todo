@@ -24,19 +24,9 @@ export default function Home() {
     incompleteTaskMutation,
   } = useTodo();
 
-  const [createdTasks, setCreatedTasks] = useState(0);
-  const [completedTasks, setCompletedTasks] = useState(0);
-
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    if (Array.isArray(tasks)) {
-      setCreatedTasks(tasks.filter((task) => !task.completed).length);
-      setCompletedTasks(tasks.filter((task) => task.completed).length);
-    }
-  }, [tasks]);
-
+ 
   const handleCreateTask = (task: Task) => {
     createTaskMutation.mutate(task);
     setIsEditing(false);
