@@ -65,7 +65,7 @@ export default function TaskInputForm({
   };
 
   return (
-    <form className="w-8/12 mb-10" onSubmit={handleSubmit}>
+    <form className="w-10/12 lg:w-8/12 mb-10" onSubmit={handleSubmit}>
       <div className="w-full flex gap-2 items-center flex-col">
         <input
           type="text"

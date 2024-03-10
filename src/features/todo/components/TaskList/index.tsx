@@ -45,7 +45,7 @@ export default function TaskList({
 
   return (
     <>
-      <div className="flex justify-between mb-4 w-8/12">
+      <div className="flex justify-between mb-4 w-10/12 lg:w-8/12">
         <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
           {t("created")} {totals().totalTasks}
         </h2>
@@ -54,7 +54,7 @@ export default function TaskList({
           {totals().totalTasks}
         </h2>
       </div>
-      <div className="flex flex-col items-center justify-center w-8/12">
+      <div className="flex flex-col items-center justify-center w-10/12 lg:w-8/12">
         <ol className="w-full">
           {!isLoading &&
             tasks &&

@@ -74,9 +74,9 @@ export default function Home() {
       <div className=" bg-white dark:bg-gray-800 w-screen min-h-screen">
         <Header />
         <main className="flex flex-col items-center py-2 ">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
-            {t("what_are_you_going_to_do_today")}
-          </h1>
+        <h1 className="text-3xl lg:text-5xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
+          {t("what_are_you_going_to_do_today")}
+        </h1>
 
           <TaskInputForm
             onSubmit={isEditing ? handleUpdateTask : handleCreateTask}
