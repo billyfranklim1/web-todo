@@ -72,6 +72,7 @@ export default function TaskInputForm({
           className={`${isValid ? '' : 'border-red-500 dark:border-red-500'} ${isEditing ? "border-2 border-yellow-500 dark:border-yellow-500 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full" : "border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full"}`}
           placeholder={t("add_your_task_here")}
           value={task.title}
+          maxLength={50}
           onChange={(e) => setTask({ ...task, title: e.target.value })}
         />
         <p className="text-red-500 text-xs w-full mb-2">
@@ -81,6 +82,7 @@ export default function TaskInputForm({
           className={isEditing ? "border-2 border-yellow-500 dark:border-yellow-500 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full" : "border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full"}
           placeholder={t("add_your_task_description_here")}
           value={task.description}
+          maxLength={150}
           onChange={(e) => setTask({ ...task, description: e.target.value })}
         />
         <div className="w-full rounded-md flex items-start gap-2">
