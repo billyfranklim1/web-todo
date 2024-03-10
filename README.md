@@ -1,13 +1,7 @@
 <p align="center">
   <h3 align="center">📝 ToDo App</h3>
   <div align="center">
-    <table>
-      <tr>
-        <td>
-          <img src="public/images/preview.gif" width="500px" alt="Preview" />
-        </td>
-      </tr>
-    </table>
+      <img src="public/images/preview.gif" width="500px" alt="Preview" />
   </div>
 </p>
 
