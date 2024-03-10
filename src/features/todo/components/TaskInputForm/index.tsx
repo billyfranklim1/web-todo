@@ -22,15 +22,18 @@ export default function TaskInputForm({
     index: 0,
   });
 
+  const [isValid, setIsValid] = useState(true);
+
   useEffect(() => {
     if (isEditing && selectedTask) {
       setTask(selectedTask);
+      setIsValid(true);
     }
   }, [selectedTask, isEditing]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (!task.title.trim()) return;
+    if (!validateFields()) return;
     onSubmit(task);
     setTask({
       id: null,
@@ -52,16 +55,28 @@ export default function TaskInputForm({
     });
   }
 
+  const validateFields = () => {
+    if (!task.title.trim()) {
+      setIsValid(false);
+      return false;
+    }
+    setIsValid(true);
+    return true;
+  };
+
   return (
     <form className="w-8/12 mb-10" onSubmit={handleSubmit}>
       <div className="w-full flex gap-2 items-center flex-col">
         <input
           type="text"
-          className={isEditing ? "border-2 border-yellow-500 dark:border-yellow-500 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full" : "border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full"}
+          className={`${isValid ? '' : 'border-red-500 dark:border-red-500'} ${isEditing ? "border-2 border-yellow-500 dark:border-yellow-500 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full" : "border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full"}`}
           placeholder={t("Add your task here ...")}
           value={task.title}
           onChange={(e) => setTask({ ...task, title: e.target.value })}
         />
+        <p className="text-red-500 text-xs w-full mb-2">
+          {!isValid && t("This field is required")}
+        </p>
         <textarea
           className={isEditing ? "border-2 border-yellow-500 dark:border-yellow-500 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full" : "border-2 border-gray-200 dark:border-gray-600 rounded-md py-2 px-4 h-13 dark:bg-gray-700 dark:text-white w-full"}
           placeholder={t("Add your task description here ...")}

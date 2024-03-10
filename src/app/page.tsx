@@ -28,7 +28,7 @@ export default function Home() {
   const [isEditing, setIsEditing] = useState(false);
  
   const handleCreateTask = (task: Task) => {
-    createTaskMutation.mutate(task);
+    createTaskMutation.mutate(task)
     setIsEditing(false);
   };
 

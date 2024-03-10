@@ -54,7 +54,7 @@ export default function TaskListItem({
             id={`default-checkbox-${i}`}
             type="checkbox"
             name="taskCompletion"
-            className="h-5 w-5 rounded-md"
+            className="h-5 w-5 rounded-md cursor-pointer"
             checked={task.completed}
             onChange={() => updateStatus(task)}
           />
@@ -63,12 +63,12 @@ export default function TaskListItem({
             <label
               htmlFor={`default-checkbox-${i}`}
               className={`cursor-pointer text-sx font-medium ${
-                task.completed ? "line-through" : ""
+                task.completed ? "line-through text-gray-400 dark:text-gray-400" : ""
               } text-gray-800 dark:text-gray-300 flex items-center`}
             >
               {task.title}
             </label>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className={`text-xs text-gray-500 dark:text-gray-400 ${ task.completed ? "line-through" : ""} `}> 
               {task.description ? task.description : t("No description")}
             </span>
           </div>

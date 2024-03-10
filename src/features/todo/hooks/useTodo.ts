@@ -8,6 +8,8 @@ import {
   incompleteTask,
 } from "../api";
 
+import { toast } from 'react-toastify';
+
 export const useTodo = () => {
   const queryClient = useQueryClient();
   const {
@@ -20,6 +22,15 @@ export const useTodo = () => {
     mutationFn: createTask,
     onSuccess: () => {
       queryClient.invalidateQueries();
+      toast.success('Task created successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
     onError: (error) => {
       console.error("Error creating task:", error);
@@ -30,6 +41,15 @@ export const useTodo = () => {
     mutationFn: updateTask,
     onSuccess: () => {
       queryClient.invalidateQueries();
+      toast.success('Task updated successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
     onError: (error) => {
       console.error("Error updating task:", error);
@@ -40,6 +60,15 @@ export const useTodo = () => {
     mutationFn: deleteTask,
     onSuccess: () => {
       queryClient.invalidateQueries();
+      toast.success('Task deleted successfully!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
     onError: (error) => {
       console.error("Error deleting task:", error);

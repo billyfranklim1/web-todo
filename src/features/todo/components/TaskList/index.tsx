@@ -29,20 +29,22 @@ export default function TaskList({
         </h2>
       </div>
       <div className="flex flex-col items-center justify-center w-8/12">
-        {!isLoading &&
-          tasks &&
-          tasks.length > 0 &&
-          tasks.map((task: any, i: number) => (
-            <TaskListItem
-              key={i}
-              task={task}
-              i={i}
-              handleCompleteTask={handleCompleteTask}
-              handleIncompleteTask={handleIncompleteTask}
-              handleDeleteTask={handleDeleteTask}
-              handleEditTask={handleEditTask}
-            />
-          ))}
+        <ol className="w-full">
+          {!isLoading &&
+            tasks &&
+            tasks.length > 0 &&
+            tasks.map((task: any, i: number) => (
+              <TaskListItem
+                key={i}
+                task={task}
+                i={i}
+                handleCompleteTask={handleCompleteTask}
+                handleIncompleteTask={handleIncompleteTask}
+                handleDeleteTask={handleDeleteTask}
+                handleEditTask={handleEditTask}
+              />
+            ))}
+        </ol>
 
         {tasks && tasks.length === 0 && !isLoading && (
           <div className="w-full flex justify-center items-center flex-col">

@@ -3,6 +3,15 @@ import { Task } from "../types";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
+const sortTasks = (tasks: any) => {
+  return tasks.sort((a: any, b: any) => {
+    if (a.completed !== b.completed) {
+      return a.completed ? 1 : -1;
+    }
+    return b.index - a.index;
+  });
+}
+
 export const getTasks = async () : Promise<Task[]> => {
   try {
     const url = `/api/todos`;
@@ -16,7 +25,7 @@ export const getTasks = async () : Promise<Task[]> => {
     // delay for testing skeleton loading
     // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    return response.data; 
+    return sortTasks(response.data); 
 
   } catch (error) {
     console.error("Erro ao buscar tarefas:", error);

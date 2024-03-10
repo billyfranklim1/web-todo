@@ -32,4 +32,5 @@ export interface TaskListItemProps {
 interface ToastNotificationProps {
   message: string;
   type: "info" | "success" | "warning" | "error";
+  time?: number;
 }
