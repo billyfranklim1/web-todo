@@ -4,13 +4,13 @@ import { useTranslation } from "react-i18next";
 import Head from "next/head";
 
 import Header from "./components/Header";
-import { useTodo } from "../features/todo/hooks/useTodo";
+import { useTodo } from "../screens/todo/hooks/useTodo";
 
-import TaskInputForm from "../features/todo/components/TaskInputForm";
-import TaskList from "../features/todo/components/TaskList";
+import TaskInputForm from "../screens/todo/components/TaskInputForm";
+import TaskList from "../screens/todo/components/TaskList";
 
 import { ToastContainer } from "react-toastify";
-import { Task } from "@/features/todo/types";
+import { Task } from "@/screens/todo/types";
 
 export default function Home() {
   const { t } = useTranslation();
