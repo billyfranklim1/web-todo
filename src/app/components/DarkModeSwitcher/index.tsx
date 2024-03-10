@@ -5,7 +5,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 
 export default function  DarkModeSwitcher () {
 
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(localStorage.getItem("darkMode") === "true");
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
