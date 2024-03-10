@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <h3 align="center">📝 ToDo App</h3>
+  <div align="center">
+    <table>
+      <tr>
+        <td>
+          <img src="public/images/preview.gif" width="500px" alt="Preview" />
+        </td>
+      </tr>
+    </table>
+  </div>
+</p>
 
-## Getting Started
+### 📖 Sobre o projeto
 
-First, run the development server:
+O teste consiste em desenvolver uma aplicação web de todo list, onde o usuário pode adicionar, editar, marcar como concluído e excluir uma tarefa. E é possível mudar o idioma da aplicação entre português e inglês. E também é possível mudar o tema da aplicação entre claro e escuro.
+
+### 🎨 Layout
+
+Você pode acessar o layout do projeto no link abaixo:
+
+- [Layout]()
+
+🚨 Você precisa ter uma conta no [Figma](https://www.figma.com) para acessar o layout.
+
+### 💻 Tecnologias e bibliotecas
+
+Este projeto foi desenvolvido com as seguintes tecnologias e bibliotecas:
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Js](https://pt-br.reactjs.org/)
+- [Next Js](https://nextjs.org/)
+- [React Query](https://react-query.tanstack.com/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [React I18next](https://react.i18next.com/)
+- [React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)
+- [Framer Motion](https://www.framer.com/motion/)
+
+### 🚧 Requisitos
+
+- Qualquer sistema operacional como Windows, Linux ou Mac OS X. Contanto que você tenha o Node instalado, você está pronto para começar.
+
+## 🧱 Instalação
+
+Este projeto utiliza o npm como gerenciador de pacotes, então você pode usar o npm para instalar as dependências.
+
+🚨 Clonar este repositório do projeto:
+
+- Se você não tem o git na sua máquina, você pode instalá-lo [aqui](https://git-scm.com/downloads).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ git clone https://github.com/billyfranklim1/web-todo.git
+
+# Entre na pasta `web-todo`
+$ cd web-todo
+
+# Rode o projeto
+$ npm run dev
+
+# Em seguida, abra o navegador e acesse `http://localhost:3000`
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<!-- acessar aplicação demo  -->
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🌐 Acessar aplicação
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Você pode acessar a aplicação demo [aqui](https://web-todo-psi.vercel.app/).
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p align="center">Desenvolvido por BillyFranklim 🚀</p>
