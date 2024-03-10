@@ -1,51 +1,109 @@
 "use client";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Head from "next/head";
 
-
-import Header from "../components/Header";
-import { useTodo } from '../features/todo/hooks/useTodo';
+import Header from "./components/Header";
+import { useTodo } from "../features/todo/hooks/useTodo";
 
 import TaskInputForm from "../features/todo/components/TaskInputForm";
 import TaskList from "../features/todo/components/TaskList";
 
+import { ToastContainer } from "react-toastify";
+import { Task } from "@/features/todo/types";
 
 export default function Home() {
   const { t } = useTranslation();
-  const { todo, tasks, showSkeleton, setShowSkeleton, setTodo, handleSubmit, handleCompleteTask, handleDeleteTask, handleEditTask } = useTodo();
 
+  const {
+    tasks,
+    createTaskMutation,
+    updateTaskMutation,
+    deleteTaskMutation,
+    completeTaskMutation,
+    incompleteTaskMutation,
+  } = useTodo();
+
+  const [createdTasks, setCreatedTasks] = useState(0);
+  const [completedTasks, setCompletedTasks] = useState(0);
+
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowSkeleton(false);
-    }, 5000);
-  }, []);
+    if (Array.isArray(tasks)) {
+      setCreatedTasks(tasks.filter((task) => !task.completed).length);
+      setCompletedTasks(tasks.filter((task) => task.completed).length);
+    }
+  }, [tasks]);
 
+  const handleCreateTask = (task: Task) => {
+    createTaskMutation.mutate(task);
+    setIsEditing(false);
+  };
 
+  const handleUpdateTask = (task: Task) => {
+    updateTaskMutation.mutate(task);
+    setIsEditing(false);
+  };
+
+  const handleDeleteTask = (task: Task) => {
+    deleteTaskMutation.mutate(task);
+  };
+
+  const handleCompleteTask = (task: Task) => {
+    completeTaskMutation.mutate(task);
+  };
+
+  const handleIncompleteTask = (task: Task) => {
+    incompleteTaskMutation.mutate(task);
+  };
+
+  const handleEditTask = (task: Task) => {
+
+    window.scrollTo(0, 0);
+
+    setSelectedTask(task);
+    setIsEditing(true);
+  }
+
+  const handleCancelEdit = () => {
+    setSelectedTask(null);
+    setIsEditing(false);
+  }
 
   return (
-    <div className=" bg-white dark:bg-gray-800 w-screen">
-      <Header/>
+    <>
+      <Head>
+        <title>Minhas Tarefas - App de Todo</title>
+        <meta
+          name="description"
+          content="Organize suas tarefas diárias com facilidade."
+        />
+      </Head>
+      <div className=" bg-white dark:bg-gray-800 w-screen min-h-screen">
+        <Header />
+        <main className="flex flex-col items-center py-2 ">
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
+            {t("What are you going to do today?")}
+          </h1>
 
-      <main className="flex flex-col items-center py-2 h-screen">
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-300 mb-4 text-center bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mt-10">
-          {t("What are you going to do today?")}
-        </h1>
-        <TaskInputForm task={todo} setTask={setTodo} onSubmit={handleSubmit} />
-        <div className="flex justify-between  mb-4 w-8/12">
-          <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
-            {t("Created")} ({tasks.filter((task) => !task.completed).length})
-          </h2>
-          <h2 className="text-xs font-bold text-gray-800 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-2">
-            {t("Completed")} ({tasks.filter((task) => task.completed).length}{" "}
-            {t("of")} {tasks.length})
-          </h2>
-        </div>
-        <TaskList tasks={tasks} handleCompleteTask={handleCompleteTask} handleDeleteTask={handleDeleteTask} handleEditTask={handleEditTask} showSkeleton={showSkeleton} />
+          <TaskInputForm
+            onSubmit={isEditing ? handleUpdateTask : handleCreateTask}
+            selectedTask={selectedTask}
+            isEditing={isEditing}
+            closeEdit={handleCancelEdit}
+          />
 
-      </main>
-
-      {/* <ToastContainer /> */}
-    </div>
+          <TaskList
+            handleCompleteTask={handleCompleteTask}
+            handleIncompleteTask={handleIncompleteTask}
+            handleDeleteTask={handleDeleteTask}
+            handleEditTask={handleEditTask}
+          />
+        </main>
+      </div>
+      <ToastContainer />
+    </>
   );
 }

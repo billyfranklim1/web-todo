@@ -1,9 +1,9 @@
-import React from "react";
+"use client";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../LanguageSwitcher";
 import DarkModeSwitcher from "../DarkModeSwitcher";
 
-const Header: React.FC = () => {
+export default function  Header () {
   const { t } = useTranslation();
 
   return (
@@ -19,5 +19,3 @@ const Header: React.FC = () => {
     
   );
 };
-
-export default Header;

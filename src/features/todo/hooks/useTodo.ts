@@ -1,107 +1,94 @@
-import { useState, useCallback } from "react";
-import { Task } from "../types";
-import { useToast } from "./useToast";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  createTask,
+  deleteTask,
+  getTasks,
+  updateTask,
+  completeTask,
+  incompleteTask,
+} from "../api";
 
 export const useTodo = () => {
-  const [todo, setTodo] = useState<Task>({
-    id: null,
-    title: "",
-    description: "",
-    completed: false,
-    index: 0,
+  const queryClient = useQueryClient();
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+  } = useQuery({ queryKey: ["todos"], queryFn: getTasks });
+
+  const createTaskMutation = useMutation({
+    mutationFn: createTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+    onError: (error) => {
+      console.error("Error creating task:", error);
+    },
   });
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
-  const { notify } = useToast();
 
-  const sortTasks = useCallback((tasks: Task[]) => {
-    return tasks.sort((a, b) => {
-      if (a.completed !== b.completed) {
-        return a.completed ? 1 : -1;
-      }
-
-      return b.index - a.index;
-    });
-  }, []);
-
-  const handleSubmit = useCallback(
-    (event: any) => {
-      event.preventDefault();
-      if (!todo.title.trim()) return;
-
-      const taskExists = tasks.find((task) => task.id === todo.id);
-      if (taskExists) {
-        const newTasks = tasks.map((task) =>
-          task.id === todo.id ? todo : task
-        );
-        setTasks(sortTasks(newTasks));
-        setTodo({
-          id: null,
-          title: "",
-          description: "",
-          completed: false,
-          index: 0,
-        });
-      } else {
-        setTasks(sortTasks([...tasks, { ...todo, id: Date.now() }]));
-        setTodo({
-          id: null,
-          title: "",
-          description: "",
-          completed: false,
-          index: 0,
-        });
-      }
-
-      notify(`Task ${todo.id ? "updated" : "created"}`, "success", 2000);
+  const updateTaskMutation = useMutation({
+    mutationFn: updateTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
     },
-    [sortTasks, tasks, todo, notify]
-  );
-
-  const handleCompleteTask = useCallback(
-    (index: number) => {
-      const newTasks = [...tasks];
-      newTasks[index].completed = !newTasks[index].completed;
-      setTasks(sortTasks(newTasks));
+    onError: (error) => {
+      console.error("Error updating task:", error);
     },
-    [sortTasks, tasks]
-  );
+  });
 
-  const handleDeleteTask = useCallback(
-    (index: number) => {
-      const newTasks = [...tasks];
-      newTasks.splice(index, 1);
-      setTasks(sortTasks(newTasks));
-      notify("Task deleted", "error", 2000);
+  const deleteTaskMutation = useMutation({
+    mutationFn: deleteTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
     },
-    [sortTasks, tasks, notify]
-  );
+    onError: (error) => {
+      console.error("Error deleting task:", error);
+    },
+  });
 
-  const handleEditTask = useCallback(
-    (index: number) => {
-      const task = tasks[index];
-      setTodo({
-        id: task.id,
-        title: task.title,
-        description: task.description,
-        completed: task.completed,
-        index: task.index,
-      });
+  const completeTaskMutation = useMutation({
+    mutationFn: completeTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
     },
-    [tasks]
-  );
+    onError: (error) => {
+      console.error("Error completing task:", error);
+    },
+  });
+
+  const incompleteTaskMutation = useMutation({
+    mutationFn: incompleteTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+    onError: (error) => {
+      console.error("Error marking task as incomplete:", error);
+    },
+  });
+
+  const totals = (): {
+    totalTasks: number;
+    completedTasks: number;
+    incompleteTasks: number;
+  } => {
+    if (!tasks) return { totalTasks: 0, completedTasks: 0, incompleteTasks: 0 };
+
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter((task) => task.completed).length;
+    const incompleteTasks = totalTasks - completedTasks;
+
+    return { totalTasks, completedTasks, incompleteTasks };
+  };
 
   return {
-    todo,
-    setTodo,
     tasks,
-    setTasks,
-    showSkeleton,
-    setShowSkeleton,
-    sortTasks,
-    handleSubmit,
-    handleCompleteTask,
-    handleDeleteTask,
-    handleEditTask,
+    isLoading,
+    isError,
+    createTaskMutation,
+    updateTaskMutation,
+    deleteTaskMutation,
+    completeTaskMutation,
+    incompleteTaskMutation,
+    totals,
   };
 };

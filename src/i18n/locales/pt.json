@@ -10,5 +10,10 @@
   "No tasks to show": "Você ainda não tem tarefas cadastradas",
   "Create task and organize your day": "Crie tarefas e organize seu dia",
   "Task added successfully": "Tarefa adicionada com sucesso",
-  "Task updated successfully": "Tarefa atualizada com sucesso"
+  "Task updated successfully": "Tarefa atualizada com sucesso",
+  "Delete task": "Deletar tarefa",
+  "Are you sure you want to delete this task?": "Você tem certeza que deseja deletar esta tarefa?",
+  "No": "Não",
+  "Yes": "Sim",
+  "No description": "Sem descrição"
 }

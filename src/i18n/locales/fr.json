@@ -10,5 +10,10 @@
   "No tasks to show": "Aucune tâche à afficher",
   "Create task and organize your day": "Créez des tâches et organisez votre journée",
   "Task added successfully": "Tâche ajoutée avec succès",
-  "Task updated successfully": "Tâche mise à jour avec succès"
+  "Task updated successfully": "Tâche mise à jour avec succès",
+  "Delete task": "Supprimer la tâche",
+  "Are you sure you want to delete this task?": "Êtes-vous sûr de vouloir supprimer cette tâche?",
+  "Yes": "Oui",
+  "No": "Non",
+  "No description": "Sans description"
 }

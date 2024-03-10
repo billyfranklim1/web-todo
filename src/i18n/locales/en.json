@@ -10,5 +10,10 @@
   "No tasks to show": "No tasks to show",
   "Create task and organize your day": "Create task and organize your day",
   "Task added successfully": "Task added successfully",
-  "Task updated successfully": "Task updated successfully"
+  "Task updated successfully": "Task updated successfully",
+  "Delete task": "Delete task",
+  "Are you sure you want to delete this task?": "Are you sure you want to delete this task?",
+  "Yes": "Yes",
+  "No": "No",
+  "No description": "No description"
 }

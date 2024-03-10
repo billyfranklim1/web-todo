@@ -7,28 +7,29 @@ export interface Task {
 }
 
 export interface TaskInputFormProps {
-  onSubmit: (event: any) => void;
-  task: Task;
-  setTask: (task: Task) => void;
+  onSubmit: (task: Task) => void;
+  selectedTask: Task | null;
+  isEditing: boolean;
+  closeEdit: () => void;
 }
 
 export interface TaskListProps {
-  tasks: Task[];
-  handleCompleteTask: (index: number) => void;
-  handleDeleteTask: (index: number) => void;
-  handleEditTask: (index: number) => void;
-  showSkeleton: boolean;
+  handleCompleteTask: (task: Task) => void;
+  handleIncompleteTask: (task: Task) => void;
+  handleDeleteTask: (task: Task) => void;
+  handleEditTask: (task: Task) => void;
 }
 
 export interface TaskListItemProps {
   task: Task;
   i: number;
-  handleCompleteTask: (index: number) => void;
-  handleDeleteTask: (index: number) => void;
-  handleEditTask: (index: number) => void;
+  handleCompleteTask: (task: Task) => void;
+  handleIncompleteTask: (task: Task) => void;
+  handleDeleteTask: (task: Task) => void;
+  handleEditTask: (task: Task) => void;
 }
 
 interface ToastNotificationProps {
-    message: string;
-    type: "info" | "success" | "warning" | "error";
-  }
+  message: string;
+  type: "info" | "success" | "warning" | "error";
+}

@@ -1,8 +1,10 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaMoon, FaSun } from "react-icons/fa";
 
-const DarkModeSwitcher: React.FC = () => {
+export default function  DarkModeSwitcher () {
+
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -38,5 +40,3 @@ const DarkModeSwitcher: React.FC = () => {
     </motion.div>
   );
 };
-
-export default DarkModeSwitcher;

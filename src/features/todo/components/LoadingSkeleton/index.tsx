@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 
-const LoadingSkeleton = () => {
+export default function LoadingSkeleton () {
   return Array(5)
     .fill(0)
     .map((_, i) => (
@@ -22,5 +22,3 @@ const LoadingSkeleton = () => {
       </div>
     ));
 };
-
-export default LoadingSkeleton;
