@@ -1,12 +1,22 @@
 "use client";
 import i18n from "../../../i18n/config";
 import ReactCountryFlag from "react-country-flag"
+import React, { useEffect, useState } from "react";
 
 
 export default function LanguageSwitcher () {
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+    localStorage.setItem("i18nextLng", lng);
   };
+
+  useEffect(() => {
+    const lng = localStorage.getItem("i18nextLng");
+    if (lng) {
+      i18n.changeLanguage(lng);
+    }
+  }
+  , []);
 
   const language = i18n.language;
 
