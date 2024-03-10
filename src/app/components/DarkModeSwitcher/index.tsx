@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 export default function  DarkModeSwitcher () {
+  const isBrowser = typeof window !== 'undefined';
 
-  const [darkMode, setDarkMode] = useState<boolean>(localStorage.getItem("darkMode") === "true");
+
+  const [darkMode, setDarkMode] = useState<boolean>(isBrowser ? localStorage.getItem("darkMode") === "true" : false);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
