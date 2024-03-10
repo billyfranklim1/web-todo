@@ -9,8 +9,11 @@ import {
 } from "../api";
 
 import { toast } from 'react-toastify';
+import { useTranslation } from "react-i18next";
 
 export const useTodo = () => {
+  const { t } = useTranslation();
+
   const queryClient = useQueryClient();
   const {
     data: tasks,
@@ -22,7 +25,7 @@ export const useTodo = () => {
     mutationFn: createTask,
     onSuccess: () => {
       queryClient.invalidateQueries();
-      toast.success('Task created successfully!', {
+      toast.success(t('task_added_successfully'), {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -41,7 +44,7 @@ export const useTodo = () => {
     mutationFn: updateTask,
     onSuccess: () => {
       queryClient.invalidateQueries();
-      toast.success('Task updated successfully!', {
+      toast.success(t('task_updated_successfully'), {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -60,7 +63,7 @@ export const useTodo = () => {
     mutationFn: deleteTask,
     onSuccess: () => {
       queryClient.invalidateQueries();
-      toast.success('Task deleted successfully!', {
+      toast.success(t('task_deleted_successfully'), {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

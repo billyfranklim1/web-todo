@@ -11,6 +11,7 @@
   "create_task_and_organize_your_day": "Crie tarefas e organize seu dia",
   "task_added_successfully": "Tarefa adicionada com sucesso",
   "task_updated_successfully": "Tarefa atualizada com sucesso",
+  "task_deleted_successfully": "Tarefa deletada com sucesso",
   "delete_task": "Deletar tarefa",
   "are_you_sure_you_want_to_delete_this_task": "Você tem certeza que deseja deletar esta tarefa?",
   "no": "Não",
