@@ -1,5 +1,7 @@
 "use client";
 import i18n from "../../../i18n/config";
+import ReactCountryFlag from "react-country-flag"
+
 
 export default function LanguageSwitcher () {
   const changeLanguage = (lng: string) => {
@@ -15,16 +17,16 @@ export default function LanguageSwitcher () {
       onChange={(e) => changeLanguage(e.target.value)}
     >
       <option value="en">
-        En
+        <ReactCountryFlag countryCode="US" />
       </option>
       <option value="pt">
-        Pt
+        <ReactCountryFlag countryCode="BR" />
       </option>
       <option value="es">
-        Es
+        <ReactCountryFlag countryCode="ES" />
       </option>
       <option value="fr">
-        Fr
+        <ReactCountryFlag countryCode="FR" />
       </option>
     </select>
   );
