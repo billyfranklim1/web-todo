@@ -1,7 +1,7 @@
 <p align="center">
   <h3 align="center">📝 ToDo App</h3>
   <div align="center">
-    <img src="public/images/preview.gif" width="500px" alt="Preview do ToDo App" />
+    <img src="./public/images/preview.gif" width="500px" alt="Preview do ToDo App" />
   </div>
 </p>
 
@@ -21,7 +21,7 @@ Este projeto foi desenvolvido utilizando-se das seguintes tecnologias e bibliote
 
 - TypeScript
 - React Js
-- Next Js
+- Vite
 - React Query
 - React Toastify
 - React I18next

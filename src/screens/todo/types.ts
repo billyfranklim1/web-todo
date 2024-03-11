@@ -28,9 +28,3 @@ export interface TaskListItemProps {
   handleDeleteTask: (task: Task) => void;
   handleEditTask: (task: Task) => void;
 }
-
-interface ToastNotificationProps {
-  message: string;
-  type: "info" | "success" | "warning" | "error";
-  time?: number;
-}

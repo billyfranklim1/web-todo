@@ -1,11 +1,7 @@
-"use client";
-
-import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { TaskListProps } from "../../types";
 import { useTranslation } from "react-i18next";
-import Image from "next/image";
 import LoadingSkeleton from "../LoadingSkeleton";
 import { useTodo } from "../../hooks/useTodo";
 import { Task } from "../../types";
@@ -59,7 +55,7 @@ export default function TaskList({
           {!isLoading &&
             tasks &&
             tasks.length > 0 &&
-            tasks.map((task: any, i: number) => (
+            tasks.map((task, i) => (
               <motion.div
                 key={task.id}
                 animate={{ opacity: 1, x: 0 }}
@@ -123,12 +119,10 @@ export default function TaskList({
 
         {tasks && tasks.length === 0 && !isLoading && (
           <div className="w-full flex justify-center items-center flex-col">
-            <Image
+            <img
               src="/images/empty.jpg"
               alt="Empty tasks"
-              priority
-              width={200}
-              height={200}
+              className="w-48 h-48"
             />
             <p className="text-gray-500 dark:text-gray-400 text-md mt-2 font-bold">
               {t("no_tasks_to_show")}
