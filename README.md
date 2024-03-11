@@ -1,64 +1,83 @@
 <p align="center">
   <h3 align="center">📝 ToDo App</h3>
   <div align="center">
-      <img src="public/images/preview.gif" width="500px" alt="Preview" />
+    <img src="public/images/preview.gif" width="500px" alt="Preview do ToDo App" />
   </div>
 </p>
 
-### 📖 Sobre o projeto
+## 📘 Sobre o Projeto
 
-O teste consiste em desenvolver uma aplicação web de todo list, onde o usuário pode adicionar, editar, marcar como concluído e excluir uma tarefa. E é possível mudar o idioma da aplicação entre português e inglês. E também é possível mudar o tema da aplicação entre claro e escuro.
+Este projeto é uma aplicação web ToDo List que permite aos usuários adicionar, editar, marcar como concluído, e excluir tarefas. Além disso, oferece suporte para mudança de idioma (português e inglês) e de tema (claro e escuro), melhorando a experiência do usuário em diferentes condições de uso.
 
-### 🎨 Layout
+## 🎨 Layout
 
-Você pode acessar o layout do projeto no link abaixo:
+O layout foi cuidadosamente projetado para oferecer uma excelente experiência ao usuário. Você pode visualizar o design do projeto no Figma através do seguinte link (é necessário ter uma conta Figma):
 
-- [Layout](https://www.figma.com/file/WtDTc2MRDDfVwWqGyYy0OZ/TODO-APP?type=design&node-id=11%3A250&mode=design&t=9u0Ps6J9D3vLjxYA-1)
+- [Acessar Layout no Figma](https://www.figma.com/file/WtDTc2MRDDfVwWqGyYy0OZ/TODO-APP?type=design&node-id=11%3A250&mode=design&t=9u0Ps6J9D3vLjxYA-1)
 
-🚨 Você precisa ter uma conta no [Figma](https://www.figma.com) para acessar o layout.
+## 💻 Tecnologias e Bibliotecas
 
-### 💻 Tecnologias e bibliotecas
+Este projeto foi desenvolvido utilizando-se das seguintes tecnologias e bibliotecas:
 
-Este projeto foi desenvolvido com as seguintes tecnologias e bibliotecas:
+- TypeScript
+- React Js
+- Next Js
+- React Query
+- React Toastify
+- React I18next
+- React Loading Skeleton
+- Framer Motion
 
-- [TypeScript](https://www.typescriptlang.org/)
-- [React Js](https://pt-br.reactjs.org/)
-- [Next Js](https://nextjs.org/)
-- [React Query](https://react-query.tanstack.com/)
-- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
-- [React I18next](https://react.i18next.com/)
-- [React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)
-- [Framer Motion](https://www.framer.com/motion/)
+## 🚧 Pré-requisitos
 
-### 🚧 Requisitos
+Para rodar este projeto, você precisará de:
 
-- Qualquer sistema operacional como Windows, Linux ou Mac OS X. Contanto que você tenha o Node instalado, você está pronto para começar.
+- Node.js (versão 14.0 ou superior)
+- Git
+- npm (ou yarn, se preferir)
 
-## 🧱 Instalação
+## 🛠️ Instalação
 
-Este projeto utiliza o npm como gerenciador de pacotes, então você pode usar o npm para instalar as dependências.
+Siga estes passos para configurar o projeto localmente:
 
-🚨 Clonar este repositório do projeto:
+1. **Clonar o Repositório:**
 
-- Se você não tem o git na sua máquina, você pode instalá-lo [aqui](https://git-scm.com/downloads).
+   ```bash
+   git clone https://github.com/billyfranklim1/web-todo.git
+   cd web-todo
+   ```
 
-```bash
-$ git clone https://github.com/billyfranklim1/web-todo.git
+2. **Instalar Dependências:**
 
-# Entre na pasta `web-todo`
-$ cd web-todo
+   ```bash
+   npm install
+   ```
 
-# Rode o projeto
-$ npm run dev
+3. **Configurar Variáveis de Ambiente:**
+   Renomeie o arquivo `.env.example` para `.env` e ajuste as variáveis conforme necessário.
 
-# Em seguida, abra o navegador e acesse `http://localhost:3000`
+   ```bash
+   NEXT_PUBLIC_API_URL=https://api-todo.billy.dev.br
+   ```
 
-```
+   Alternativamente, você pode usar sua própria API conforme descrito no repositório [api-todo](https://github.com/billyfranklim1/api-todo).
 
-<!-- acessar aplicação demo  -->
+4. **Iniciar o Projeto:**
+   ```bash
+   npm run dev
+   ```
+   Acesse `http://localhost:3000` para visualizar a aplicação.
 
-### 🌐 Acessar aplicação
+## 🌐 Demonstração
 
-Você pode acessar a aplicação demo [aqui](https://web-todo-psi.vercel.app/).
+Para uma visualização rápida, acesse a aplicação demo através deste [link](https://web-todo-psi.vercel.app/). Lembre-se de que esta é uma versão de demonstração que pode não refletir totalmente as funcionalidades do projeto.
 
-<p align="center">Desenvolvido por BillyFranklim 🚀</p>
+## 🤝 Como Contribuir
+
+Sua contribuição é bem-vinda! Se você tiver sugestões para melhorar este projeto, sinta-se à vontade para fazer um fork do repositório, realizar as mudanças e criar um pull request. Seu feedback é muito valioso.
+
+## 📜 Licença
+
+Este projeto está sob licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+<p align="center">Desenvolvido tomando ☕ por Billyfranklim 🚀</p>
