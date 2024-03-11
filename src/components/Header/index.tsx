@@ -1,9 +1,8 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../LanguageSwitcher";
 import DarkModeSwitcher from "../DarkModeSwitcher";
 
-export default function  Header () {
+export default function Header() {
   const { t } = useTranslation();
 
   return (
@@ -16,6 +15,5 @@ export default function  Header () {
         <DarkModeSwitcher />
       </div>
     </header>
-    
   );
-};
+}

@@ -1,13 +1,13 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaMoon, FaSun } from "react-icons/fa";
 
-export default function  DarkModeSwitcher () {
-  const isBrowser = typeof window !== 'undefined';
+export default function DarkModeSwitcher() {
+  const isBrowser = typeof window !== "undefined";
 
-
-  const [darkMode, setDarkMode] = useState<boolean>(isBrowser ? localStorage.getItem("darkMode") === "true" : false);
+  const [darkMode, setDarkMode] = useState<boolean>(
+    isBrowser ? localStorage.getItem("darkMode") === "true" : false
+  );
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -41,4 +41,4 @@ export default function  DarkModeSwitcher () {
       </motion.div>
     </motion.div>
   );
-};
+}

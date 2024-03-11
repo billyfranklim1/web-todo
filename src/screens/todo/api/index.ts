@@ -1,10 +1,10 @@
 import axios from "axios";
 import { Task } from "../types";
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
-const sortTasks = (tasks: any) => {
-  return tasks.sort((a: any, b: any) => {
+const sortTasks = (tasks: Task[]) => {
+  return tasks.sort((a: Task, b: Task) => {
     if (a.completed !== b.completed) {
       return a.completed ? 1 : -1;
     }
