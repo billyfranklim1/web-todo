@@ -2,21 +2,19 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Head from "next/head";
+import { ToastContainer } from "react-toastify";
 
 import Header from "./components/Header";
 import { useTodo } from "../screens/todo/hooks/useTodo";
-
 import TaskInputForm from "../screens/todo/components/TaskInputForm";
 import TaskList from "../screens/todo/components/TaskList";
 
-import { ToastContainer } from "react-toastify";
 import { Task } from "@/screens/todo/types";
 
 export default function Home() {
   const { t } = useTranslation();
 
   const {
-    tasks,
     createTaskMutation,
     updateTaskMutation,
     deleteTaskMutation,
