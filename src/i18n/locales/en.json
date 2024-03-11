@@ -1,0 +1,21 @@
+{
+  "what_are_you_going_to_do_today": "What are you going to do today?",
+  "add_your_task_here": "Add your task here ...",
+  "add_your_task_description_here": "Add your task description here ...",
+  "press_enter_to_save_task": "Press Enter to save task",
+  "add": "Add",
+  "todo_list": "Todo List",
+  "created": "Created",
+  "completed": "Completed",
+  "no_tasks_to_show": "No tasks to show",
+  "create_task_and_organize_your_day": "Create task and organize your day",
+  "task_added_successfully": "Task added successfully",
+  "task_updated_successfully": "Task updated successfully",
+  "task_deleted_successfully": "Task deleted successfully",
+  "delete_task": "Delete task",
+  "are_you_sure_you_want_to_delete_this_task": "Are you sure you want to delete this task?",
+  "yes": "Yes",
+  "no": "No",
+  "no_description": "No description",
+  "text_field_required": "This field is required"
+}

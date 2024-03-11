@@ -1,0 +1,21 @@
+{
+  "what_are_you_going_to_do_today": "¿Qué vas a hacer hoy?",
+  "add_your_task_here": "Agrega tu tarea aquí ...",
+  "add_your_task_description_here": "Agrega la descripción de tu tarea aquí ...",
+  "press_enter_to_save_task": "Presiona Enter para guardar la tarea",
+  "todo_list": "Lista de tareas",
+  "add": "Añadir",
+  "created": "Creadas",
+  "completed": "Completadas",
+  "no_tasks_to_show": "No hay tareas para mostrar",
+  "create_task_and_organize_your_day": "Crea tareas y organiza tu día",
+  "task_added_successfully": "Tarea agregada con éxito",
+  "task_updated_successfully": "Tarea actualizada con éxito",
+  "task_deleted_successfully": "Tarea eliminada con éxito",
+  "delete_task": "Eliminar tarea",
+  "are_you_sure_you_want_to_delete_this_task": "¿Estás seguro de que quieres eliminar esta tarea?",
+  "yes": "Sí",
+  "no": "no",
+  "no_description": "Sin descripción",
+  "text_field_required": "Campo de texto requerido"
+}
